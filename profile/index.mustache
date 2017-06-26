@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="main.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1> Lets play wheel of fortune!</h1>
+    <div class="pushedApart">
+        <div class="catergory">Mystery Word!
+        </div>
+        <div> You have {{counter}} guesses left
+        </div>
+    </div>
+    <br>
+    <div class="hiddenWord">
+        {{#words}}
+        <span>{{.}}</span> {{/words}}
+    </div>
+    <br>
+    <form action="/" method="POST">
+        <input type="text" minlength="1" maxlength="1" id="text">
+        <input type="submit">
+    </form>
+    <br>
+    <div class='guessLetters'> Guessed letters:{{letters}}
+    </div>
+    <script src="logic.js"></script>
+
+</body>
+
+</html>

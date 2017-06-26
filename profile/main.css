@@ -1,0 +1,10 @@
+body {
+    text-align: center;
+}
+
+.pushedApart {
+    display: flex;
+    justify-content: space-around;
+}
+
+.hiddenWord {}
