@@ -60,12 +60,12 @@ app.post('/', function (req, res) {
     console.log('userGuess: ', userGuess);
     console.log(req.session)
     if (isNaN(userGuess)) {
-        //is a letter
+        req.session.error = "";
 
     } else {
         req.session.error = "Please only use Letters"
     }
-    //check that user input is valid... one letter, no number
+
 
     //check if user input is in random word
 
