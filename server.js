@@ -14,6 +14,7 @@ var randomWord = words[randomNumber];
 var wordLength = randomWord.length;
 var replacedWords = []
 var lettersGuessed = []
+var lives = 8;
 
 for (i = 0; i < wordLength; i += 1) {
     replacedWords.push("_ ");
@@ -45,11 +46,8 @@ app.listen(port, function () {
 
 
 app.get('/', function (req, res) {
-    var lettersMatched = ''
-    var lettersGuessed = lettersMatched;
-    var numLettersMatched = 0;
 
-    setup();
+
     res.render('index', { words: replacedWords, counter: lives, letters: lettersGuessed, wrongGuess: req.session.error });
 });
 
@@ -57,35 +55,33 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
     var userGuess = req.body.userGuess;
-    console.log('userGuess: ', userGuess);
-    console.log(req.session)
-    if (isNaN(userGuess)) {
-        req.session.error = "";
+    let isWrong = true;
 
-    } else {
-        req.session.error = "Please only use Letters"
+    checkIfUserGuessIsValid(userGuess, req, res);
+
+    //check if user input is in random word
+    //put user input into random word OR guessed letters
+    for (var i = 0; i < wordLength; i++) {
+        if (userGuess == randomWord.split('')[i]) {
+            replacedWords[i] = userGuess;
+            isWrong = false
+        }
+    }
+    if (isWrong) {
+        lettersGuessed.push(userGuess)
+        lives = lives - 1;
+        // lives -= 1;
     }
 
 
-    //check if user input is in random word
-
-    //put user input into random word OR guessed letters
 
     //display replacedwords and guessed letters
 
 
-    // if (randomWord.indexOf(req) != -1) { // if the character is found
-    //     for (var i = 0; i < wordLength; i++) { // loop on all characters
-    //         if (randomWord[i] == req) // if this is an occurance
-    //             progressWord[i] = chosenWord[i];
-    //     }
-    // } else {
-    //     // wrong choice
-    // }
 
 
 
-    res.redirect('/')
+    return res.redirect('/')
 });
 
 
@@ -93,14 +89,13 @@ app.post('/', function (req, res) {
 
 //logic
 
-function setup() {
-    /* start config options */
-    availableLetters = "abcdefghijklmnopqrstuvwxyz";
-    lives = 8;
-    messages = {
-        win: 'You win!',
-        lose: 'Game over!',
-        guessed: ' already guessed, please try again...',
-        validLetter: 'Please enter a letter from A-Z'
-    };
-};
+
+function checkIfUserGuessIsValid(userGuess, req, res) {
+    if (isNaN(userGuess)) {
+        req.session.error = "";
+
+    } else {
+        req.session.error = "Please only use letters"
+        return res.redirect('/')
+    }
+}
