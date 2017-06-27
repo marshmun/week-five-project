@@ -49,8 +49,12 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
     var userGuess = req.body;
-    // see if post is getting the user input
-    console.log(userGuess);
+    if (isNaN(userGuess)) {
+        //is a letter
+
+    } else {
+        //is a numner
+    }
     //check that user input is valid... one letter, no number
 
     //check if user input is in random word
