@@ -1,6 +1,7 @@
 const express = require("express")
 const mustacheExpress = require("mustache-express");
 const bodyParser = require('body-parser');
+const session = require("express-session");
 const fs = require('fs')
 const app = express();
 const port = process.env.PORT || 4000;
@@ -28,7 +29,14 @@ app.set("view engine", "mustache")
 app.use(express.static('./profile'))
 //middleware
 app.use(bodyParser.urlencoded({ extended: false }))
-
+app.use(
+    session({
+        secret: "aberrant horse gun",
+        resave: true,
+        saveUninitialized: true,
+        cookie: { maxAge: 900000 }
+    })
+);
 
 //routes
 app.listen(port, function () {
@@ -48,12 +56,13 @@ app.get('/', function (req, res) {
 
 
 app.post('/', function (req, res) {
-    var userGuess = req.body;
+    var userGuess = req.body.userGuess;
+
     if (isNaN(userGuess)) {
         //is a letter
 
     } else {
-        //is a numner
+
     }
     //check that user input is valid... one letter, no number
 
