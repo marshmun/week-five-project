@@ -50,19 +50,20 @@ app.get('/', function (req, res) {
     var numLettersMatched = 0;
 
     setup();
-    res.render('index', { words: replacedWords, counter: lives, letters: lettersGuessed });
+    res.render('index', { words: replacedWords, counter: lives, letters: lettersGuessed, wrongGuess: req.session.error });
 });
 
 
 
 app.post('/', function (req, res) {
     var userGuess = req.body.userGuess;
-
+    console.log('userGuess: ', userGuess);
+    console.log(req.session)
     if (isNaN(userGuess)) {
         //is a letter
 
     } else {
-
+        req.session.error = "Please only use Letters"
     }
     //check that user input is valid... one letter, no number
 
