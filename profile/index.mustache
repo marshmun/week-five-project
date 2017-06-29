@@ -11,26 +11,27 @@
 
 <body>
 
-    <h1> Lets play wheel of fortune!</h1>
+    <h1> Lets play hangman!</h1>
     <div class="pushedApart">
         <div class="catergory">Mystery Word!
         </div>
-        <div> You have {{counter}} guesses left
+        <div> You have
+            <p id="counter">{{counter}}</p> guesses left
         </div>
     </div>
     <br>
+    <img id="img" src="" alt="">
     <div class="hiddenWord">
         {{#words}}
         <span>{{.}}</span> {{/words}}
     </div>
     <br>
-    <form action="/" method="POST">
+    <form action="/game" method="POST">
         <input type="text" minlength="1" maxlength="1" id="text" name="userGuess">
         <input type="submit">
     </form>
-    <br>
-    {{wrongGuess}}
-    <div class='guessLetters'> Guessed letters:{{letters}}
+    <br> {{wrongGuess}}
+    <div class='guessLetters'> Guessed letters:{{#letters}}{{.}}{{/letters}}
     </div>
     <script src="logic.js"></script>
 
